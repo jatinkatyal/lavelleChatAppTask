@@ -14,14 +14,14 @@ var app = express();
 var upload = multer(); 
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
-
+var mongo_uri = process.env.MONGODB_URI || 'mongodb://localhost/chat'
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use(cookieParser());
 app.use(session({secret:"jatin"}));
-mongoose.connect('mongodb://localhost/chat');
-//var db = mongodb.MongoClient.connect('mongodb://heroku_nr7z07zq:ogn4bfnb6pe31ogiqh97sol546@ds113835.mlab.com:13835/heroku_nr7z07zq');
+mongoose.connect(mongo_uri);
+console.log(mongo_uri)
 
 const urlencodedParser = bodyParser.urlencoded({extended:false});
 app.engine('html',ejs.renderFile);
