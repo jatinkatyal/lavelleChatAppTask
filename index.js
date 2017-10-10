@@ -13,11 +13,13 @@ var sha256 = require('sha256');
 var app = express();
 var upload = multer(); 
 var server_port = process.env.PORT || 8080
-var server_ip_address = process.env.IP || '127.0.0.1'
+//var server_ip_address = process.env.IP || '127.0.0.1'
 var mongo_uri = process.env.MONGODB_URI || 'mongodb://localhost/chat'
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
+app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/views');
 app.use(cookieParser());
 app.use(session({secret:"jatin"}));
 mongoose.connect(mongo_uri);
@@ -173,6 +175,6 @@ function checkSignIn(req,res,next){
 }
 
 
-app.listen(server_port, server_ip_address,()=>{
-	console.log("server started");
+app.listen(server_port,()=>{
+	console.log("server started at"+server_port);
 });
