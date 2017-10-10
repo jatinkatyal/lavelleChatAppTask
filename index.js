@@ -12,8 +12,8 @@ var sha256 = require('sha256');
 
 var app = express();
 var upload = multer(); 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+var server_port = process.env.PORT || 8080
+var server_ip_address = process.env.IP || '127.0.0.1'
 var mongo_uri = process.env.MONGODB_URI || 'mongodb://localhost/chat'
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
