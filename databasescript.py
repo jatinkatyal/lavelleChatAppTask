@@ -1,11 +1,13 @@
 import random, string, pymysql
 
+#Returns a string of random characters with length between 5-15
 def randWord():
 	s=''
 	for i in range(random.randint(5,15)):
 		s+=random.choice(string.ascii_lowercase)
 	return s
 
+#Returns a string of random words with length between 1-15 words.
 def randMsg():
 	s=''
 	for i in range(random.randint(1,15)):
@@ -13,8 +15,8 @@ def randMsg():
 	return s.strip()
 
 if __name__=="__main__":
-	host, username, password = ('localhost','root','root')#input("Enter host, username & password: ").split()
-	database = "chatApp"#input("Database: ")
+	host, username, password =input("Enter host, username & password: ").split()
+	database = input("Database: ")
 	connection = pymysql.connect(host,username,password)
 	cursor = connection.cursor()
 	cursor.execute("show databases")
@@ -29,12 +31,12 @@ if __name__=="__main__":
 		cursor.execute("use "+database)
 		cursor.execute("create table users(username varchar(15) primary key, password varchar(15) not null)")
 		cursor.execute("create table messages(sender varchar(15) not null, reciever varchar(15) not null, message varchar(255) not null)")
-	"""	
-		#adding users
-		for i in range(1000):
-			cursor.execute("insert into users(username,password) values('"+randWord()+"','"+randWord()+"')")
-		connection.commit()
-	"""
+
+	#adding users
+	for i in range(1000):
+		cursor.execute("insert into users(username,password) values('"+randWord()+"','"+randWord()+"')")
+	connection.commit()
+
 	#adding messages
 	cursor.execute("select username from users")
 	users = [user[0] for user in cursor.fetchall()]
