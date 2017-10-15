@@ -46,6 +46,6 @@ if __name__=="__main__":
 			sender = random.choice(users)
 			reciever = random.choice(users)
 			cursor.execute("insert into messages values('"+sender+"','"+reciever+"','"+randMsg()+"')")
-		print("batch "+i+"done")
+		print("batch "+str(i)+"done")
 		connection.commit()
 	connection.close()
